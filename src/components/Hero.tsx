@@ -13,34 +13,51 @@ const Hero = () => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(".hero-line", {
-        clipPath: "inset(0 0 100% 0)",
-        y: 30,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 1.1,
-      }, 0.3);
+      tl.from(
+        ".hero-line",
+        {
+          clipPath: "inset(0 0 100% 0)",
+          y: 30,
+          opacity: 0,
+          stagger: 0.12,
+          duration: 1.1,
+        },
+        0.3,
+      );
 
-      tl.from(".hero-sub", {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-      }, 0.8);
+      tl.from(
+        ".hero-sub",
+        {
+          y: 20,
+          opacity: 0,
+          duration: 0.8,
+        },
+        0.8,
+      );
 
-      tl.from(".hero-cta", {
-        y: 15,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.7,
-      }, 1.1);
+      tl.from(
+        ".hero-cta",
+        {
+          y: 15,
+          opacity: 0,
+          stagger: 0.1,
+          duration: 0.7,
+        },
+        1.1,
+      );
 
-      tl.fromTo(".hero-image-wrap", {
-        clipPath: "inset(100% 0 0 0)",
-      }, {
-        clipPath: "inset(0% 0 0 0)",
-        duration: 1.2,
-        ease: "expo.out",
-      }, 0.5);
+      tl.fromTo(
+        ".hero-image-wrap",
+        {
+          clipPath: "inset(100% 0 0 0)",
+        },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "expo.out",
+        },
+        0.5,
+      );
 
       gsap.to(imageRef.current, {
         yPercent: -6,
@@ -52,7 +69,6 @@ const Hero = () => {
           scrub: 1.2,
         },
       });
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -67,10 +83,8 @@ const Hero = () => {
       <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24 2xl:px-32 py-24 lg:py-32">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-center">
-
             {/* LEFT COLUMN */}
             <div className="lg:col-span-6 xl:col-span-5 max-w-xl">
-
               <p className="hero-line text-[12px] font-medium text-primary tracking-[0.25em] uppercase mb-6">
                 Neeraj Dental Clinic - Kaithal
               </p>
@@ -81,8 +95,9 @@ const Hero = () => {
               </h1>
 
               <p className="hero-sub text-base sm:text-lg text-muted-foreground mt-8 max-w-lg">
-                Safe, painless and modern dental treatments in Kaithal.
-                From routine checkups to advanced procedures - your smile is in expert hands.
+                Safe, painless and modern dental treatments in Kaithal. From
+                routine checkups to advanced procedures - your smile is in
+                expert hands.
               </p>
 
               <div className="flex flex-wrap items-center gap-6 mt-10">
@@ -117,7 +132,6 @@ const Hero = () => {
                   </div>
                 ))}
               </div>
-
             </div>
 
             {/* RIGHT COLUMN */}
@@ -127,7 +141,7 @@ const Hero = () => {
                 className="hero-image-wrap overflow-hidden rounded-xl shadow-medium"
               >
                 <img
-                  src="https://i.pinimg.com/1200x/b8/36/d0/b836d094d2c50ee8382b7a8a948287cc.jpg"
+                  src="https://i.pinimg.com/1200x/8a/73/31/8a7331e0e61dbd935b162069cc382816.jpg"
                   alt="Neeraj Dental Clinic reception area"
                   className="
                     w-full object-cover
@@ -145,7 +159,6 @@ const Hero = () => {
                 Neeraj Dental Clinic - Kaithal, Haryana
               </p>
             </div>
-
           </div>
         </div>
       </div>

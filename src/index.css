@@ -1,35 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ===============================
-   LUXURY DENTAL THEME
-   Inspired by warm wood + marble clinic
+   CLEAN DENTAL BLUE THEME
+   Minimal • Clinical • Premium
 ================================= */
 
 @layer base {
   :root {
-    /* Warm marble background */
-    --background: 30 20% 96%;
-    --foreground: 28 12% 15%;
+    /* Background & Text */
+    --background: 210 40% 98%;
+    --foreground: 215 25% 18%;
 
-    /* Soft beige surface */
-    --surface: 30 18% 92%;
+    /* Surfaces */
+    --surface: 210 30% 96%;
 
-    /* Walnut wood primary */
-    --primary: 28 35% 32%;
-    --primary-foreground: 30 20% 96%;
+    /* Primary Dental Blue */
+    --primary: 210 85% 42%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Warm accent glow */
-    --accent: 35 45% 60%;
+    /* Secondary Accent Blue */
+    --accent: 200 90% 55%;
 
-    /* Subtle muted text */
-    --muted-foreground: 28 8% 45%;
-
-    /* Light stone border */
-    --border: 30 12% 85%;
+    /* Text & Borders */
+    --muted-foreground: 215 12% 45%;
+    --border: 210 25% 88%;
 
     --radius: 0.75rem;
   }
@@ -57,19 +55,19 @@
 }
 
 /* ===============================
-   LAYOUT SYSTEM (WIDE + PREMIUM)
+   LAYOUT SYSTEM
 ================================= */
 
 @layer utilities {
 
-  /* Wide container for large screens */
+  /* Wide Premium Container */
   .container-wide {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    max-width: 1600px;
+    max-width: 1500px;
   }
 
   @media (min-width: 640px) {
@@ -86,13 +84,7 @@
     }
   }
 
-  @media (min-width: 1536px) {
-    .container-wide {
-      max-width: 1700px;
-    }
-  }
-
-  /* Vertical spacing rhythm */
+  /* Section spacing */
   .section-spacing {
     padding-top: 5rem;
     padding-bottom: 5rem;
@@ -100,21 +92,12 @@
 
   @media (min-width: 1024px) {
     .section-spacing {
-      padding-top: 7rem;
-      padding-bottom: 7rem;
+      padding-top: 6rem;
+      padding-bottom: 6rem;
     }
   }
 
-  /* Warm section gradient */
-  .warm-surface {
-    background: linear-gradient(
-      to bottom,
-      hsl(var(--surface)),
-      hsl(var(--background))
-    );
-  }
-
-  /* Soft marble surface */
+  /* Surface blocks */
   .surface {
     background-color: hsl(var(--surface));
   }
@@ -123,31 +106,49 @@
     color: hsl(var(--muted-foreground));
   }
 
-  /* Premium architectural shadows */
+  /* Clean Shadow System */
   .shadow-soft {
-    box-shadow:
-      0 2px 6px 0 rgba(0, 0, 0, 0.04),
-      0 10px 30px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   }
 
   .shadow-medium {
-    box-shadow:
-      0 6px 18px 0 rgba(0, 0, 0, 0.06),
-      0 30px 80px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   }
 
   .shadow-hover {
-    transition: all 0.35s ease;
+    transition: all 0.25s ease;
   }
 
   .shadow-hover:hover {
-    box-shadow:
-      0 8px 25px 0 rgba(0, 0, 0, 0.08),
-      0 40px 100px 0 rgba(0, 0, 0, 0.12);
-    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
   }
 
-  /* Elegant underline animation */
+  /* Button System */
+  .btn-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.9);
+  }
+
+  .btn-outline {
+    border: 1px solid hsl(var(--border));
+    color: hsl(var(--primary));
+    background: transparent;
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+  }
+
+  .btn-outline:hover {
+    background-color: hsl(var(--primary) / 0.05);
+  }
+
+  /* Link underline */
   .link-underline {
     position: relative;
   }
@@ -160,27 +161,25 @@
     height: 1px;
     width: 0;
     background-color: hsl(var(--primary));
-    transition: width 0.4s ease;
+    transition: width 0.3s ease;
   }
 
   .link-underline:hover::after {
     width: 100%;
   }
+}
 
-  /* Warm button style */
-  .btn-primary {
-    background-color: hsl(var(--primary));
-    color: hsl(var(--primary-foreground));
-    transition: all 0.3s ease;
-  }
+/* ===============================
+   CLEAN DEFAULT ELEMENTS
+================================= */
 
-  .btn-primary:hover {
-    background-color: hsl(var(--primary) / 0.85);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  }
+.card {
+  padding: 2rem;
+  background-color: hsl(var(--surface));
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+}
 
-  /* Warm LED glow effect */
-  .glow-accent {
-    box-shadow: 0 0 30px hsl(var(--accent) / 0.3);
-  }
+.read-the-docs {
+  color: hsl(var(--muted-foreground));
 }
