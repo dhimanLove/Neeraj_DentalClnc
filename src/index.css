@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===============================
+   LUXURY DENTAL THEME
+   Inspired by warm wood + marble clinic
+================================= */
+
+@layer base {
+  :root {
+    /* Warm marble background */
+    --background: 30 20% 96%;
+    --foreground: 28 12% 15%;
+
+    /* Soft beige surface */
+    --surface: 30 18% 92%;
+
+    /* Walnut wood primary */
+    --primary: 28 35% 32%;
+    --primary-foreground: 30 20% 96%;
+
+    /* Warm accent glow */
+    --accent: 35 45% 60%;
+
+    /* Subtle muted text */
+    --muted-foreground: 28 8% 45%;
+
+    /* Light stone border */
+    --border: 30 12% 85%;
+
+    --radius: 0.75rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
+}
+
+/* ===============================
+   LAYOUT SYSTEM (WIDE + PREMIUM)
+================================= */
+
+@layer utilities {
+
+  /* Wide container for large screens */
+  .container-wide {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    max-width: 1600px;
+  }
+
+  @media (min-width: 640px) {
+    .container-wide {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-wide {
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container-wide {
+      max-width: 1700px;
+    }
+  }
+
+  /* Vertical spacing rhythm */
+  .section-spacing {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .section-spacing {
+      padding-top: 7rem;
+      padding-bottom: 7rem;
+    }
+  }
+
+  /* Warm section gradient */
+  .warm-surface {
+    background: linear-gradient(
+      to bottom,
+      hsl(var(--surface)),
+      hsl(var(--background))
+    );
+  }
+
+  /* Soft marble surface */
+  .surface {
+    background-color: hsl(var(--surface));
+  }
+
+  .text-subtle {
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* Premium architectural shadows */
+  .shadow-soft {
+    box-shadow:
+      0 2px 6px 0 rgba(0, 0, 0, 0.04),
+      0 10px 30px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .shadow-medium {
+    box-shadow:
+      0 6px 18px 0 rgba(0, 0, 0, 0.06),
+      0 30px 80px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .shadow-hover {
+    transition: all 0.35s ease;
+  }
+
+  .shadow-hover:hover {
+    box-shadow:
+      0 8px 25px 0 rgba(0, 0, 0, 0.08),
+      0 40px 100px 0 rgba(0, 0, 0, 0.12);
+    transform: translateY(-6px);
+  }
+
+  /* Elegant underline animation */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 1px;
+    width: 0;
+    background-color: hsl(var(--primary));
+    transition: width 0.4s ease;
+  }
+
+  .link-underline:hover::after {
+    width: 100%;
+  }
+
+  /* Warm button style */
+  .btn-primary {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: hsl(var(--primary) / 0.85);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Warm LED glow effect */
+  .glow-accent {
+    box-shadow: 0 0 30px hsl(var(--accent) / 0.3);
+  }
+}
