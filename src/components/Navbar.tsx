@@ -22,15 +22,31 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (mobileMenuRef.current) {
-      if (mobileOpen) {
-        gsap.to(mobileMenuRef.current, { opacity: 1, pointerEvents: "auto", duration: 0.3, ease: "power2.out" });
-        gsap.from(mobileMenuRef.current.querySelectorAll(".mobile-link"), {
-          y: 20, opacity: 0, stagger: 0.05, duration: 0.4, ease: "power3.out", delay: 0.1
-        });
-      } else {
-        gsap.to(mobileMenuRef.current, { opacity: 0, pointerEvents: "none", duration: 0.2, ease: "power2.in" });
-      }
+    if (!mobileMenuRef.current) return;
+
+    if (mobileOpen) {
+      gsap.to(mobileMenuRef.current, {
+        opacity: 1,
+        pointerEvents: "auto",
+        duration: 0.3,
+        ease: "power2.out",
+      });
+
+      gsap.from(mobileMenuRef.current.querySelectorAll(".mobile-link"), {
+        y: 20,
+        opacity: 0,
+        stagger: 0.07,
+        duration: 0.4,
+        ease: "power3.out",
+        delay: 0.1,
+      });
+    } else {
+      gsap.to(mobileMenuRef.current, {
+        opacity: 0,
+        pointerEvents: "none",
+        duration: 0.2,
+        ease: "power2.in",
+      });
     }
   }, [mobileOpen]);
 
@@ -43,19 +59,26 @@ const Navbar = () => {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled ?
-          "bg-background/80 backdrop-blur-xl border-b border-border/50 py-3" :
-          "bg-transparent py-5"
+          scrolled
+            ? "bg-background/85 backdrop-blur-xl border-b border-border/60 py-4"
+            : "bg-transparent py-6"
         }`}
       >
-        <div className="container mx-auto flex items-center justify-between px-4">
-          {/* Logo and Clinic Name */}
-          <button onClick={() => scrollTo("#home")} className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">🦷</span>
+        <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-16 xl:px-24">
+
+          {/* Logo */}
+          <button
+            onClick={() => scrollTo("#home")}
+            className="flex items-center gap-4"
+          >
+            <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center shadow-soft">
+              <span className="text-primary-foreground font-bold text-lg">
+                🦷
+              </span>
             </div>
+
             <div className="flex flex-col items-start">
-              <span className="text-base font-bold tracking-tight text-foreground">
+              <span className="text-base font-semibold tracking-tight">
                 Neeraj Dental
               </span>
               <span className="text-xs font-medium text-muted-foreground">
@@ -64,32 +87,35 @@ const Navbar = () => {
             </div>
           </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-12">
             {navLinks.map((link) => (
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className="link-underline text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors duration-300 pb-0.5"
+                className="link-underline text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 {link.label}
               </button>
             ))}
           </div>
 
-          {/* Desktop CTA Button */}
+          {/* Desktop CTA */}
           <div className="hidden lg:block">
             <button
               onClick={() => scrollTo("#appointment")}
-              className="text-[13px] font-medium bg-primary text-primary-foreground px-6 py-2.5 rounded-full hover:bg-primary/90 transition-colors duration-300"
+              className="bg-primary text-primary-foreground px-7 py-3 rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
             >
               Book Appointment
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button className="lg:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          {/* Mobile Toggle */}
+          <button
+            className="lg:hidden text-foreground"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
@@ -97,20 +123,21 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         ref={mobileMenuRef}
-        className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl flex flex-col items-center justify-center gap-6 opacity-0 pointer-events-none"
+        className="fixed inset-0 z-40 bg-background/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none"
       >
         {navLinks.map((link) => (
           <button
             key={link.href}
             onClick={() => scrollTo(link.href)}
-            className="mobile-link text-2xl font-medium text-foreground hover:text-primary transition-colors"
+            className="mobile-link text-2xl font-medium hover:text-primary transition-colors"
           >
             {link.label}
           </button>
         ))}
+
         <button
           onClick={() => scrollTo("#appointment")}
-          className="mobile-link mt-4 bg-primary text-primary-foreground px-8 py-3 rounded-full text-base font-medium hover:bg-primary/90 transition-colors"
+          className="mobile-link mt-6 bg-primary text-primary-foreground px-10 py-4 rounded-full text-base font-medium hover:bg-primary/90 transition-colors"
         >
           Book Appointment
         </button>
