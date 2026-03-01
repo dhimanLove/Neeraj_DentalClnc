@@ -127,7 +127,7 @@ const Hero = () => {
                 className="hero-image-wrap overflow-hidden rounded-xl shadow-medium"
               >
                 <img
-                  src="\public\neeraj wala ckinic.jpg"
+                  src="https://i.pinimg.com/1200x/b8/36/d0/b836d094d2c50ee8382b7a8a948287cc.jpg"
                   alt="Neeraj Dental Clinic reception area"
                   className="
                     w-full object-cover
