@@ -64,7 +64,7 @@ const Navbar = () => {
             : "bg-transparent py-6"
         }`}
       >
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-16 xl:px-24">
+        <div className="max-w-[1800px] mx-auto flex items-center justify-between px-6 sm:px-8 lg:px-16 xl:px-24">
 
           {/* Logo */}
           <button
