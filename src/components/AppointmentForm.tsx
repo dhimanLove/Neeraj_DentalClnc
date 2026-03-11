@@ -33,9 +33,10 @@ const AppointmentForm = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(".form-card", {
-        y: 40,
+        y: 60,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.9,
+        ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top 80%",
@@ -49,25 +50,17 @@ const AppointmentForm = () => {
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Full name is required";
-    }
+    if (!formData.name.trim()) newErrors.name = "Full name is required";
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       newErrors.email = "Enter a valid email address";
-    }
 
-    if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+    if (!/^[6-9]\d{9}$/.test(formData.phone))
       newErrors.phone = "Enter valid 10-digit Indian mobile number";
-    }
 
-    if (!formData.date) {
-      newErrors.date = "Select preferred date";
-    }
+    if (!formData.date) newErrors.date = "Select preferred date";
 
-    if (!formData.service) {
-      newErrors.service = "Select a treatment";
-    }
+    if (!formData.service) newErrors.service = "Select a treatment";
 
     return newErrors;
   };
@@ -84,208 +77,234 @@ const AppointmentForm = () => {
   };
 
   return (
-    <section
-      id="appointment"
-      ref={sectionRef}
-      className="section-spacing warm-surface"
-    >
-      <div className="container-wide">
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
+      <section
+          id="appointment"
+          ref={sectionRef}
+          className="relative py-28 bg-gradient-to-b from-surface to-background overflow-hidden"
+      >
 
-          {/* LEFT SIDE */}
-          <div className="lg:col-span-4 max-w-lg">
-            <h2 className="text-3xl font-semibold mb-4">
-              Book Your Appointment
-            </h2>
-            <p className="text-muted-foreground">
-              Fill in your details and our clinic team will contact you shortly.
-            </p>
-          </div>
+        {/* Soft background glow */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-[-120px] left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-primary/10 blur-[150px] rounded-full"></div>
+        </div>
 
-          {/* FORM SIDE */}
-          <div className="lg:col-span-7 lg:col-start-6">
-            <form
-              onSubmit={handleSubmit}
-              className="form-card bg-background rounded-2xl p-8 shadow-soft border border-border"
-            >
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+        <div className="container-wide">
 
-                {/* FULL NAME */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Full Name
-                  </label>
-                  <Input
-                    placeholder="Enter full name"
-                    className="bg-surface border border-border"
-                    value={formData.name}
-                    onChange={(e) =>
-                      setFormData({ ...formData, name: e.target.value })
-                    }
-                  />
-                  {errors.name && (
-                    <p className="text-xs text-red-500 mt-1">{errors.name}</p>
-                  )}
-                </div>
+          <div className="grid lg:grid-cols-12 gap-16 items-start">
 
-                {/* EMAIL */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Email Address
-                  </label>
-                  <Input
-                    type="email"
-                    placeholder="example@email.com"
-                    className="bg-surface border border-border"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                  />
-                  {errors.email && (
-                    <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-                  )}
-                </div>
+            {/* LEFT CONTENT */}
+            <div className="lg:col-span-4 max-w-md space-y-6">
 
-                {/* PHONE + COUNTRY */}
-                <div>
-                  <label className="text-sm font-medium mb-2 block">
-                    Mobile Number
-                  </label>
+              <h2 className="text-3xl lg:text-4xl font-semibold leading-tight tracking-tight">
+                Book Your Appointment
+              </h2>
 
-                  <div className="flex gap-2">
+              <p className="text-muted-foreground leading-relaxed">
+                Schedule your visit with
+                <span className="font-medium text-foreground">
+                {" "}Neeraj Dental Clinic
+              </span>
+                {" "}for expert dental care in a comfortable and modern environment.
+              </p>
 
-                    <Select
-                      value={formData.countryCode}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, countryCode: value })
-                      }
-                    >
-                      <SelectTrigger className="w-24 bg-surface border border-border rounded-lg">
-                        <SelectValue />
-                      </SelectTrigger>
+              <p className="text-muted-foreground leading-relaxed">
+                Fill out the form and our clinic team will contact you shortly
+                to confirm your appointment and guide you through the next steps.
+              </p>
 
-                      <SelectContent
-                        className="bg-background border border-border shadow-medium rounded-lg z-50"
-                      >
-                        <SelectItem value="+91">+91 India</SelectItem>
-                        <SelectItem value="+1">+1 USA</SelectItem>
-                        <SelectItem value="+44">+44 UK</SelectItem>
-                      </SelectContent>
-                    </Select>
+              <ul className="text-sm text-muted-foreground space-y-3 pt-2">
+                <li>✔ Experienced dental specialists</li>
+                <li>✔ Modern equipment & painless treatments</li>
+                <li>✔ Personalized care for every patient</li>
+              </ul>
+
+            </div>
+
+            {/* FORM */}
+            <div className="lg:col-span-7 lg:col-start-6">
+
+              <form
+                  onSubmit={handleSubmit}
+                  className="form-card relative bg-background/90 backdrop-blur-xl rounded-3xl p-10 lg:p-12 shadow-[0_20px_70px_rgba(0,0,0,0.08)] border border-border/60 space-y-8"
+              >
+
+                {/* NAME + EMAIL */}
+                <div className="grid sm:grid-cols-2 gap-7">
+
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      Full Name
+                    </label>
 
                     <Input
-                      type="tel"
-                      placeholder="10-digit mobile number"
-                      maxLength={10}
-                      className="bg-surface border border-border"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          phone: e.target.value.replace(/\D/g, ""),
-                        })
-                      }
+                        placeholder="Enter full name"
+                        className="bg-surface border border-border focus:ring-2 focus:ring-primary/40 transition-all"
+                        value={formData.name}
+                        onChange={(e) =>
+                            setFormData({ ...formData, name: e.target.value })
+                        }
                     />
+
+                    {errors.name && (
+                        <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+                    )}
                   </div>
 
-                  {errors.phone && (
-                    <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
-                  )}
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      Email Address
+                    </label>
+
+                    <Input
+                        type="email"
+                        placeholder="example@email.com"
+                        className="bg-surface border border-border focus:ring-2 focus:ring-primary/40 transition-all"
+                        value={formData.email}
+                        onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                        }
+                    />
+
+                    {errors.email && (
+                        <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+                    )}
+                  </div>
+
                 </div>
 
-                {/* DATE */}
+                {/* PHONE + DATE */}
+                <div className="grid sm:grid-cols-2 gap-7">
+
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      Mobile Number
+                    </label>
+
+                    <div className="flex gap-2">
+
+                      <Select
+                          value={formData.countryCode}
+                          onValueChange={(value) =>
+                              setFormData({ ...formData, countryCode: value })
+                          }
+                      >
+                        <SelectTrigger className="w-24 bg-surface border border-border rounded-lg">
+                          <SelectValue />
+                        </SelectTrigger>
+
+                        <SelectContent className="bg-background border border-border shadow-lg rounded-lg">
+                          <SelectItem value="+91">+91 India</SelectItem>
+                          <SelectItem value="+1">+1 USA</SelectItem>
+                          <SelectItem value="+44">+44 UK</SelectItem>
+                        </SelectContent>
+                      </Select>
+
+                      <Input
+                          type="tel"
+                          placeholder="10-digit mobile number"
+                          maxLength={10}
+                          className="bg-surface border border-border focus:ring-2 focus:ring-primary/40 transition-all"
+                          value={formData.phone}
+                          onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                phone: e.target.value.replace(/\D/g, ""),
+                              })
+                          }
+                      />
+
+                    </div>
+
+                    {errors.phone && (
+                        <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">
+                      Preferred Date
+                    </label>
+
+                    <Input
+                        type="date"
+                        className="bg-surface border border-border focus:ring-2 focus:ring-primary/40 transition-all"
+                        value={formData.date}
+                        onChange={(e) =>
+                            setFormData({ ...formData, date: e.target.value })
+                        }
+                    />
+
+                    {errors.date && (
+                        <p className="text-xs text-red-500 mt-1">{errors.date}</p>
+                    )}
+                  </div>
+
+                </div>
+
+                {/* SERVICE */}
                 <div>
                   <label className="text-sm font-medium mb-2 block">
-                    Preferred Date
+                    Select Treatment
                   </label>
-                  <Input
-                    type="date"
-                    className="bg-surface border border-border"
-                    value={formData.date}
-                    onChange={(e) =>
-                      setFormData({ ...formData, date: e.target.value })
-                    }
-                  />
-                  {errors.date && (
-                    <p className="text-xs text-red-500 mt-1">{errors.date}</p>
+
+                  <Select
+                      onValueChange={(value) =>
+                          setFormData({ ...formData, service: value })
+                      }
+                  >
+                    <SelectTrigger className="bg-surface border border-border rounded-lg">
+                      <SelectValue placeholder="Choose treatment" />
+                    </SelectTrigger>
+
+                    <SelectContent className="bg-background border border-border shadow-lg rounded-lg">
+                      <SelectItem value="general-checkup">General Checkup</SelectItem>
+                      <SelectItem value="root-canal">Root Canal Treatment</SelectItem>
+                      <SelectItem value="whitening">Teeth Whitening</SelectItem>
+                      <SelectItem value="implants">Dental Implants</SelectItem>
+                      <SelectItem value="braces">Braces / Orthodontics</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {errors.service && (
+                      <p className="text-xs text-red-500 mt-1">
+                        {errors.service}
+                      </p>
                   )}
                 </div>
 
-              </div>
+                {/* MESSAGE */}
+                <div>
+                  <label className="text-sm font-medium mb-2 block">
+                    Your Concern (Optional)
+                  </label>
 
-              {/* SERVICE */}
-              <div className="mb-6">
-                <label className="text-sm font-medium mb-2 block">
-                  Select Treatment
-                </label>
+                  <Textarea
+                      placeholder="Describe your concern briefly..."
+                      rows={4}
+                      className="bg-surface border border-border resize-none focus:ring-2 focus:ring-primary/40 transition-all"
+                      value={formData.message}
+                      onChange={(e) =>
+                          setFormData({ ...formData, message: e.target.value })
+                      }
+                  />
+                </div>
 
-                <Select
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, service: value })
-                  }
-                >
-                  <SelectTrigger className="bg-surface border border-border rounded-lg">
-                    <SelectValue placeholder="Choose treatment" />
-                  </SelectTrigger>
-
-                  <SelectContent
-                    className="bg-background border border-border shadow-medium rounded-lg z-50"
-                  >
-                    <SelectItem value="general-checkup">
-                      General Checkup
-                    </SelectItem>
-                    <SelectItem value="root-canal">
-                      Root Canal Treatment
-                    </SelectItem>
-                    <SelectItem value="whitening">
-                      Teeth Whitening
-                    </SelectItem>
-                    <SelectItem value="implants">
-                      Dental Implants
-                    </SelectItem>
-                    <SelectItem value="braces">
-                      Braces / Orthodontics
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-
-                {errors.service && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {errors.service}
-                  </p>
-                )}
-              </div>
-
-              {/* MESSAGE */}
-              <div className="mb-8">
-                <label className="text-sm font-medium mb-2 block">
-                  Your Concern (Optional)
-                </label>
-                <Textarea
-                  placeholder="Describe your concern briefly..."
-                  rows={4}
-                  className="bg-surface border border-border resize-none"
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                />
-              </div>
-
+                {/* BUTTON */}
                 <button
-                  type="submit"
-                  className="btn-primary w-full px-10 py-5 rounded-full text-sm font-medium flex items-center justify-center gap-2"
+                    type="submit"
+                    className="btn-primary w-full py-4 rounded-full text-sm font-medium flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   {submitted ? "Submitted Successfully" : "Book Appointment"}
                   {!submitted && <ArrowRight size={16} />}
                 </button>
 
-            </form>
+              </form>
+
+            </div>
+
           </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };
 

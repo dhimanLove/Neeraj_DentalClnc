@@ -9,6 +9,11 @@
    Minimal • Clinical • Premium
 ================================= */
 
+*::selection
+{
+  background-color: hsl(var(--primary) / 0.2);
+  color: hsl(var(--primary));
+}
 @layer base {
   :root {
     /* Background & Text */

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
+// import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -100,18 +100,10 @@ const Hero = () => {
                 expert hands.
               </p>
 
-              <div className="flex flex-wrap items-center gap-6 mt-10">
+              <div className="mt-10">
                 <a
-                  href="#appointment"
-                  className="hero-cta btn-primary inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-medium"
-                >
-                  Book Appointment
-                  <ArrowRight size={16} />
-                </a>
-
-                <a
-                  href="#services"
-                  className="hero-cta link-underline text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    href="#services"
+                    className="hero-cta link-underline text-md font-large text-muted-foreground hover:text-foreground transition-colors"
                 >
                   View Treatments
                 </a>

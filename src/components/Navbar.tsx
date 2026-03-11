@@ -68,22 +68,24 @@ const Navbar = () => {
 
           {/* Logo */}
           <button
-            onClick={() => scrollTo("#home")}
-            className="flex items-center gap-4"
+              onClick={() => scrollTo("#home")}
+              className="flex items-center gap-4"
           >
-            <div className="w-11 h-11 rounded-xl bg-primary flex items-center justify-center shadow-soft">
-              <span className="text-primary-foreground font-bold text-lg">
-                🦷
-              </span>
+            <div className="w-11 h-11 rounded-xl overflow-hidden shadow-soft">
+              <img
+                  src="https://www.thiings.co/_next/image?url=https%3A%2F%2Flftz25oez4aqbxpq.public.blob.vercel-storage.com%2Fimage-q5mb4zZCjsJCQx7qowogOswdi6h1Qz.png&w=500&q=75"
+                  alt="Neeraj Dental Logo"
+                  className="w-full h-full object-cover"
+              />
             </div>
 
             <div className="flex flex-col items-start">
-              <span className="text-base font-semibold tracking-tight">
-                Neeraj Dental
-              </span>
+    <span className="text-base font-semibold tracking-tight">
+      Neeraj Dental
+    </span>
               <span className="text-xs font-medium text-muted-foreground">
-                Clinic
-              </span>
+      Clinic
+    </span>
             </div>
           </button>
 
