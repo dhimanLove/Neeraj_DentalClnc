@@ -12,10 +12,14 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-soft">
-                <span className="text-primary-foreground font-semibold">
-                  N
-                </span>
+              <div className="w-15 h-15 rounded-xl flex items-center justify-center shadow-soft">
+
+                  <img
+                      src="https://www.thiings.co/_next/image?url=https%3A%2F%2Flftz25oez4aqbxpq.public.blob.vercel-storage.com%2Fimage-q5mb4zZCjsJCQx7qowogOswdi6h1Qz.png&w=500&q=75"
+                      alt="logo"
+                      className="w-8 h-8 object-contain"
+                  />
+
               </div>
               <span className="text-lg font-semibold tracking-tight">
                 Neeraj Dental Clinic
