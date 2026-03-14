@@ -55,7 +55,7 @@ const Footer = () => {
               <a
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                className="block text-sm text-subtle hover:text-foreground transition-all duration-300 py-2 link-underline"
+                className="block text-sm text-subtle hover:text-foreground transition-all duration-500 py-2 link-underline"
               >
                 {link}
               </a>
