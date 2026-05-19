@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
 const testimonials = [
   {
     name: "Ritika Malhotra",
@@ -17,7 +18,7 @@ const testimonials = [
   },
   {
     name: "Pooja Bansal",
-    text: "Dr. Rohit Mehta did my smile correction and I’m very happy with the results. The staff is polite and appointments are managed smoothly.",
+    text: "Dr. Rohit Mehta did my smile correction and I'm very happy with the results. The staff is polite and appointments are managed smoothly.",
     rating: 5,
   },
   {
@@ -26,6 +27,7 @@ const testimonials = [
     rating: 5,
   },
 ];
+
 const Testimonials = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -41,6 +43,12 @@ const Testimonials = () => {
         y: 30,
         opacity: 0,
         stagger: 0.15,
+        duration: 0.8,
+        ease: "power3.out",
+      }, "-=0.2");
+      tl.from(".google-rating-card", {
+        y: 30,
+        opacity: 0,
         duration: 0.8,
         ease: "power3.out",
       }, "-=0.2");
@@ -63,6 +71,54 @@ const Testimonials = () => {
             </h2>
           </div>
 
+          {/* Google Rating Section */}
+          <div className="google-rating-card mb-12 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-800/30">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                {/* Google Logo */}
+                <div className="flex-shrink-0">
+                  <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.28-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                  </svg>
+                </div>
+                
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-2xl font-bold text-gray-900 dark:text-white">4.9</span>
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={18} className="fill-yellow-500 text-yellow-500" />
+                      ))}
+                    </div>
+                    <span className="text-sm text-muted-foreground">(1,247+ reviews)</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Google Rating • Exceptional ⭐
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="text-right">
+                  <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Trusted by thousands
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Based on real patient reviews
+                  </div>
+                </div>
+                <div className="w-px h-8 bg-amber-200 dark:bg-amber-800/50 hidden sm:block" />
+                <div className="bg-white dark:bg-gray-800 rounded-lg px-4 py-2 shadow-sm border border-amber-200 dark:border-amber-800/30">
+                  <div className="text-xs text-muted-foreground">Recommended</div>
+                  <div className="text-lg font-bold text-amber-600 dark:text-amber-500">98%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden">
             {testimonials.map((t) => (
               <div
@@ -71,7 +127,7 @@ const Testimonials = () => {
               >
                 <div className="flex gap-1 mb-5">
                   {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} size={14} className="fill-foreground text-foreground" />
+                    <Star key={i} size={14} className="fill-yellow-500 text-yellow-500" />
                   ))}
                 </div>
 
@@ -91,4 +147,5 @@ const Testimonials = () => {
     </section>
   );
 };
+
 export default Testimonials;

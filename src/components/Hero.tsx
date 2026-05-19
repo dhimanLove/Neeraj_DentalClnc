@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-// import { ArrowRight } from "lucide-react";
+ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -7,7 +7,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -59,16 +58,6 @@ const Hero = () => {
         0.5,
       );
 
-      gsap.to(imageRef.current, {
-        yPercent: -6,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: 1.2,
-        },
-      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -129,7 +118,6 @@ const Hero = () => {
             {/* RIGHT COLUMN */}
             <div className="lg:col-span-6 xl:col-span-7">
               <div
-                ref={imageRef}
                 className="hero-image-wrap overflow-hidden rounded-xl shadow-medium"
               >
                 <img

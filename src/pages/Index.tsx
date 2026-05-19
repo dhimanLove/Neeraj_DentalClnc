@@ -13,8 +13,22 @@ const Index = () => {
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setShowTop(window.scrollY > 600);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+    let lastShowTop = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const shouldShow = window.scrollY > 600;
+        if (shouldShow !== lastShowTop) {
+          lastShowTop = shouldShow;
+          setShowTop(shouldShow);
+        }
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 

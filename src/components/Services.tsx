@@ -33,7 +33,6 @@ const Services = () => {
       tl.from(".service-item", {
         y: 30,
         opacity: 0,
-        filter: "blur(4px)",
         stagger: { amount: 0.6, from: "start" },
         duration: 0.8,
         ease: "power3.out",
@@ -59,9 +58,8 @@ const Services = () => {
           {services.map((service, i) => (
             <div
               key={service.title}
-              className={`service-item group bg-background p-8 lg:p-10 transition-colors duration-300 hover:bg-surface ${
-                i < 3 ? "" : ""
-              }`}
+              className={`service-item group bg-background p-8 lg:p-10 transition-colors duration-300 hover:bg-surface ${i < 3 ? "" : ""
+                }`}
             >
               <service.icon
                 size={22}
