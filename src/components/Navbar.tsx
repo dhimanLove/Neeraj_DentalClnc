@@ -1,6 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from "react-router-dom";
-import { Phone, Calendar, Sparkles, ArrowRight, Shield, Star, Clock } from "lucide-react";
+import {
+  Phone,
+  Calendar,
+  Sparkles,
+  ArrowRight,
+  Shield,
+  Star,
+  Clock,
+  X
+} from "lucide-react";
 import gsap from 'gsap';
 import AnimatedThemeToggle from "./themetoggle";
 
@@ -57,22 +66,25 @@ export default function Navbar() {
     const offsetPosition = elementPosition - navbarHeight;
     window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
   };
-
   const handleNavClick = (e: React.MouseEvent, link: string) => {
     e.preventDefault();
 
     const sectionMap: Record<string, string> = {
-      'Services': 'services',
-      'About': 'about',
-      'Team': 'team',
-      'Reviews': 'testimonials',
-      'Contact': 'appointment'
+      Services: "services",
+      About: "about",
+      Team: "team",
+      Reviews: "testimonials",
+      Contact: "appointment",
     };
 
     const sectionId = sectionMap[link];
-    
+
     if (location.pathname !== "/") {
-      navigate(`/#${sectionId}`);
+      navigate("/");
+
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
     } else {
       scrollToSection(sectionId);
     }
@@ -190,7 +202,7 @@ export default function Navbar() {
       setupPillAnimations();
       setupCtaAnimation();
     }, 100);
-    
+
     window.addEventListener('resize', () => {
       setupPillAnimations();
       setupCtaAnimation();
@@ -246,31 +258,41 @@ export default function Navbar() {
     <>
       <nav
         ref={navbarRef}
-        className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 flex items-center justify-between"
-        style={{
-          paddingTop: '16px',
-          paddingBottom: '16px',
-        }}
+        className={`
+fixed top-0 left-0 right-0 z-50
+px-6 md:px-10
+flex items-center justify-between
+transition-all duration-500
+${scrolled ? "py-3" : "py-4"}
+`}
       >
-        {/* Glass background with theme variables */}
-        <div className="absolute inset-0 pointer-events-none">
+        {<div className="absolute inset-0 pointer-events-none">
           <div
-            className="absolute inset-0 transition-colors duration-300"
+            className="absolute inset-0 transition-all duration-500"
             style={{
-              background: 'hsl(var(--background) / 0.85)',
-              backdropFilter: 'blur(40px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-              boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 right-0 h-px"
-            style={{
-              background: 'linear-gradient(90deg, transparent 0%, hsl(var(--border)) 20%, hsl(var(--border)) 80%, transparent 100%)',
+              background: scrolled
+                ? "hsl(var(--background) / 0.72)"
+                : "hsl(var(--background) / 0.45)",
+
+              backdropFilter: scrolled
+                ? "blur(24px) saturate(180%)"
+                : "blur(10px) saturate(140%)",
+
+              WebkitBackdropFilter: scrolled
+                ? "blur(24px) saturate(180%)"
+                : "blur(10px) saturate(140%)",
+
+              borderBottom: scrolled
+                ? "1px solid hsl(var(--border) / 0.7)"
+                : "1px solid transparent",
+
+              boxShadow: scrolled
+                ? "0 10px 30px rgba(0,0,0,0.04)"
+                : "none",
             }}
           />
         </div>
-
+        }
         {/* Logo */}
         <a
           href="/"
@@ -290,19 +312,36 @@ export default function Navbar() {
         </a>
 
         {/* Desktop navigation */}
-        <div className="hidden md:flex items-center relative z-10" style={{ gap: '0.125rem' }}>
+        <div
+          className="hidden md:flex items-center relative z-10"
+          style={{ gap: "0.25rem" }}
+        >
           {NAV_LINKS.map((link, i) => (
             <div
               key={link}
-              ref={el => { navItemRefs.current[i] = el; }}
-              className="relative overflow-hidden rounded-full cursor-pointer"
+              ref={(el) => {
+                navItemRefs.current[i] = el;
+              }}
+              className="
+        relative
+        h-[42px]
+        px-5
+        inline-flex
+        items-center
+        justify-center
+        overflow-hidden
+        rounded-full
+        cursor-pointer
+        transition-all
+        duration-300
+        hover:-translate-y-[1px]
+      "
               style={{
-                padding: '6px 14px',
-                background: 'transparent',
-                color: 'hsl(var(--muted-foreground))',
-                fontSize: '11px',
-                letterSpacing: '0.15em',
-                textTransform: 'uppercase',
+                background: "transparent",
+                color: "hsl(var(--muted-foreground))",
+                fontSize: "11px",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
                 fontWeight: 600,
               }}
               onMouseEnter={() => handlePillEnter(i)}
@@ -311,16 +350,48 @@ export default function Navbar() {
             >
               <span
                 className="absolute left-1/2 bottom-0 rounded-full pointer-events-none"
-                style={{ background: 'hsl(var(--primary))', willChange: 'transform' }}
-                ref={el => { circleRefs.current[i] = el; }}
+                style={{
+                  background: "hsl(var(--primary))",
+                  willChange: "transform",
+                }}
+                ref={(el) => {
+                  circleRefs.current[i] = el;
+                }}
               />
-              <span className="label-stack relative inline-block leading-none z-[2]">
-                <span className="pill-label relative inline-block leading-none" style={{ willChange: 'transform' }}>
+
+              <span className="label-stack relative flex items-center justify-center h-full leading-none z-[2]">
+                <span
+                  className="
+            pill-label
+            relative
+            flex
+            items-center
+            justify-center
+            h-full
+            leading-none
+          "
+                  style={{ willChange: "transform" }}
+                >
                   {link}
                 </span>
+
                 <span
-                  className="pill-label-hover absolute left-0 top-0 inline-block whitespace-nowrap"
-                  style={{ color: 'hsl(var(--primary-foreground))', willChange: 'transform, opacity' }}
+                  className="
+            pill-label-hover
+            absolute
+            left-0
+            top-0
+            flex
+            items-center
+            justify-center
+            whitespace-nowrap
+            h-full
+            leading-none
+          "
+                  style={{
+                    color: "hsl(var(--primary-foreground))",
+                    willChange: "transform, opacity",
+                  }}
                   aria-hidden="true"
                 >
                   {link}
@@ -329,71 +400,148 @@ export default function Navbar() {
             </div>
           ))}
 
-          {/* Phone Button with theme variables */}
+          {/* Phone */}
           <a
             href="tel:+919876543210"
-            className="relative overflow-hidden rounded-full ml-1 transition-colors duration-300"
+            className="
+      relative
+      h-[42px]
+      px-5
+      ml-1
+      inline-flex
+      items-center
+      justify-center
+      rounded-full
+      transition-all
+      duration-300
+      hover:-translate-y-[1px]
+    "
             style={{
-              padding: '6px 14px',
-              background: 'transparent',
-              fontSize: '11px',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
+              background: "transparent",
+              fontSize: "11px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
               fontWeight: 600,
-              color: 'hsl(var(--muted-foreground))',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '6px',
+              color: "hsl(var(--muted-foreground))",
+              gap: "8px",
             }}
           >
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
             </span>
+
             <Phone size={11} />
+
             <span>+91 98765 43210</span>
           </a>
 
-          {/* Theme Toggle */}
-          <div className="mx-1">
+          {/* Theme */}
+          <div className="mx-1 flex items-center justify-center h-[42px]">
             <AnimatedThemeToggle />
           </div>
 
-          {/* Premium CTA Button */}
+          {/* CTA */}
           <div
             ref={ctaItemRef}
-            className="relative overflow-hidden rounded-full cursor-pointer ml-2 shadow-md hover:shadow-lg transition-all duration-300"
+            className="
+      relative
+      h-[42px]
+      px-5
+      inline-flex
+      items-center
+      justify-center
+      overflow-hidden
+      rounded-full
+      cursor-pointer
+      ml-2
+      transition-all
+      duration-300
+      hover:-translate-y-[1px]
+      active:scale-[0.985]
+    "
             style={{
-              padding: '6px 18px',
-              background: 'hsl(var(--primary))',
-              color: 'hsl(var(--primary-foreground))',
-              fontSize: '11px',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
+              background: "hsl(var(--primary))",
+              color: "hsl(var(--primary-foreground))",
+              fontSize: "11px",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
               fontWeight: 700,
+              boxShadow:
+                "0 6px 20px hsl(var(--primary) / 0.16)",
             }}
             onMouseEnter={handleCtaEnter}
             onMouseLeave={handleCtaLeave}
-            onClick={(e) => handleNavClick(e, 'Contact')}
+            onClick={(e) => handleNavClick(e, "Contact")}
           >
             <span
-              className="absolute left-1/2 bottom-0 rounded-full pointer-events-none"
-              style={{ background: 'hsl(var(--primary-foreground))', willChange: 'transform' }}
               ref={ctaCircleRef}
+              className="absolute left-1/2 bottom-0 rounded-full pointer-events-none"
+              style={{
+                background: "hsl(var(--primary-foreground))",
+                willChange: "transform",
+              }}
             />
-            <span className="label-stack relative inline-block leading-none z-[2]">
-              <span className="pill-label relative inline-block leading-none flex items-center gap-1.5" style={{ willChange: 'transform' }}>
-                <Calendar size={11} className="pill-icon" />
-                <span>Book Now</span>
-              </span>
+
+            <div
+              className="absolute inset-0 rounded-full pointer-events-none"
+              style={{
+                border:
+                  "1px solid hsl(var(--primary-foreground) / 0.08)",
+              }}
+            />
+
+            <span className="label-stack relative z-[2] flex items-center justify-center h-full leading-none">
               <span
-                className="pill-label-hover absolute left-0 top-0 inline-block whitespace-nowrap"
-                style={{ color: 'hsl(var(--primary))', willChange: 'transform, opacity' }}
+                className="
+          pill-label
+          relative
+          flex
+          items-center
+          justify-center
+          gap-1.5
+          h-full
+          leading-none
+        "
+                style={{ willChange: "transform" }}
+              >
+                <Calendar
+                  size={12}
+                  className="pill-icon shrink-0"
+                />
+
+                <span className="relative top-[0.5px]">
+                  Book Now
+                </span>
+              </span>
+
+              <span
+                className="
+          pill-label-hover
+          absolute
+          left-0
+          top-0
+          flex
+          items-center
+          justify-center
+          gap-1.5
+          whitespace-nowrap
+          h-full
+          leading-none
+        "
+                style={{
+                  color: "hsl(var(--primary))",
+                  willChange: "transform, opacity",
+                }}
                 aria-hidden="true"
               >
-                <span className="flex items-center gap-1.5">
-                  <ArrowRight size={11} className="pill-icon-hover" />
-                  <span>Book Now</span>
+                <ArrowRight
+                  size={12}
+                  className="pill-icon-hover shrink-0"
+                />
+
+                <span className="relative top-[0.5px]">
+                  Book Now
                 </span>
               </span>
             </span>
@@ -455,7 +603,8 @@ export default function Navbar() {
               const icons = [Sparkles, Shield, Star, Clock, Calendar];
               const Icon = icons[i];
               return (
-                <button
+                <button 
+                
                   key={link}
                   onClick={(e) => handleNavClick(e as any, link)}
                   className="flex items-center justify-between w-full px-5 py-4 text-left text-sm font-medium transition-all duration-300 group rounded-xl"

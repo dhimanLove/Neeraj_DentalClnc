@@ -1,4 +1,12 @@
-import { Mail, MapPin, Phone, ArrowRight, Facebook, Instagram, Twitter, Youtube, Clock, ChevronRight } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Phone,
+  ArrowRight,
+  Clock,
+  ChevronRight
+} from "lucide-react";
+
 import { useState } from "react";
 
 const Footer = () => {
@@ -9,7 +17,7 @@ const Footer = () => {
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !email.includes("@")) return;
-    
+
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
@@ -42,12 +50,7 @@ const Footer = () => {
     "Pediatric Dentistry",
   ];
 
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Youtube, href: "#", label: "YouTube" },
-  ];
+
 
   const workingHours = [
     { day: "Monday - Friday", hours: "9:00 AM - 8:00 PM" },
@@ -59,10 +62,10 @@ const Footer = () => {
     <footer className="bg-gradient-to-b from-surface to-background border-t border-border pt-16 pb-8">
       <div className="w-full px-6 sm:px-8 lg:px-16 xl:px-24">
         <div className="max-w-[1600px] mx-auto">
-          
+
           {/* Main Footer Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-            
+
             {/* Brand Column */}
             <div className="space-y-6">
               <div className="flex items-center gap-3">
@@ -77,9 +80,9 @@ const Footer = () => {
                   Neeraj Dental Clinic
                 </span>
               </div>
-              
+
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Precision dentistry with warmth, comfort, and modern care in Kaithal. 
+                Precision dentistry with warmth, comfort, and modern care in Kaithal.
                 Transforming smiles with advanced dental technology.
               </p>
 
@@ -102,19 +105,8 @@ const Footer = () => {
                 </div>
               </div>
 
-              {/* Social Links */}
-              <div className="flex gap-3 pt-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    aria-label={social.label}
-                    className="w-9 h-9 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-white transition-all duration-300 hover:scale-110"
-                  >
-                    <social.icon size={16} />
-                  </a>
-                ))}
-              </div>
+
+
             </div>
 
             {/* Navigation Column */}
